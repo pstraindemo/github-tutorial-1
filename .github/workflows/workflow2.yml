@@ -1,12 +1,8 @@
-name: CI_Workflow1
+name: CI_Workflow2
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  schedule:
+  - cron: 0 0 * * *
 
 jobs:
   build:
@@ -26,10 +22,3 @@ jobs:
 
       - name: Run tests
         run: npm test
-  
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Tests
-        run: echo "these are tests!"
