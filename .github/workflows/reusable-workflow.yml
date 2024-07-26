@@ -1,0 +1,36 @@
+name: Reusable CI Workflow
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: 'Node.js version'
+        required: true
+        type: string
+      custom-message:
+        description: 'Custom message to print'
+        required: false
+        default: 'Hello from reusable workflow!'
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Print custom message
+        run: echo ${{ inputs.custom-message }}
